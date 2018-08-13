@@ -21,6 +21,13 @@ def concat(*args, sep="/"): # default value for sep argument
     # print(type(args)) # this will be of type tuple
     return sep.join(args) # we can also return the calculation
 
+def myfunc2(param1: str, param2: str = "param2", *args: tuple ) -> str:
+    print("Annotations: ", myfunc2.__annotations__)
+    print("myfunc2.__annotations__:", type(myfunc2.__annotations__))
+    print("type(param1):", type(param1))
+    print("type(param2):", type(param2))
+    print("type(args): ", type(args))
+
 
 
 if __name__ == '__main__':
@@ -35,6 +42,9 @@ if __name__ == '__main__':
     print()
     print(concat("earth", "mars", "jupiter"))
     print(concat("earth", "mars", "jupiter", sep="#"))
+    print()
+    myfunc2("param1")
+
 
     
 
