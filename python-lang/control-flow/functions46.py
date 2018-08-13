@@ -17,14 +17,26 @@ def myfunc(param, *args, **kwargs):
     for key in kwargs:
         print(key, ':', kwargs[key])
 
+def concat(*args, sep="/"): # default value for sep argument
+    # print(type(args)) # this will be of type tuple
+    return sep.join(args) # we can also return the calculation
+
+
+
 if __name__ == '__main__':
     fibo(50)
-    mylist = ['a', "something", 23.5, 23]
+    mytup = ('a', "something", 23.5, 23)
     mydict = {'a':"apple", "b":"bat"}
-    myfunc("Hello there", mylist, mydict)#what if we pass an explicitlist/dict
+    myfunc("Hello there", mytup, mydict)#what if we pass an explicit tup/dict
     print()
     myfunc("New Hello", "a", "list", "of", "items", name="name", age=34) #normal
+    print()
+    myfunc("New Hello", *mytup, **mydict) # unpacking at action
+    print()
+    print(concat("earth", "mars", "jupiter"))
+    print(concat("earth", "mars", "jupiter", sep="#"))
 
+    
 
 
 
