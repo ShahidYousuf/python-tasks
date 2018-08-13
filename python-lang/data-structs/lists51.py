@@ -92,3 +92,33 @@ print(names)
 names_copy = names.copy()
 print(names_copy)
 
+# List Comprehensions Basic
+
+squares = [x**2 for x in range(1, 11)] # squares of numbers from 1 to 10
+print(squares)
+
+# list of tuples containing index and item
+hold = [(names.index(item), item) for item in names] # tuple must be in '()'
+print(hold)
+
+# list of names converted to uppercase
+capital_names = [name.upper() for name in names]
+print(capital_names)
+
+# list of tuples containing lenght of each item and the item
+len_names = [(len(name), name) for name in names]
+print(len_names)
+
+# list of names whose lengh is equal to three
+threes = [name for name in names if len(name) == 3]
+print(threes)
+# all names which start with letter 'b'
+bees = [name for name in names if name.startswith("b")]
+print(bees)
+
+# flatten a list
+vec = [[1,2,3], [4,5,6], [7,8,9]]
+flatten = [num for item in vec for num in item]
+print(flatten)
+
+
