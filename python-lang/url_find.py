@@ -11,14 +11,13 @@ def load_and_save(url, fl):
 #f.close()
 
 hold = ''        
-with open('source.txt') as f:
+with open('../../source.txt') as f:
     hold = f.read()
-print(type(hold))
 target = hold.split()
 # All links
 result = [item[6:] for item in target if "href" in item]
 # Links starting with http or https
-result2 = [item[6:(0 or item.index("\""))] for item in result if item.startswith("http")]
+result2 = [item[0:(0 or item.index("\""))] for item in result if item.startswith("http")]
 for link in result2:
     print(link)
 
