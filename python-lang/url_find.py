@@ -1,4 +1,3 @@
-import re
 from urllib.request import urlopen
 def load_and_save(url, fl):
     with urlopen(url) as response:
