@@ -1,8 +1,11 @@
 class Person:
+    # all persons, shared by all instances -- class variable
+    all_persons = []
     def __init__(self, name, job=None, pay=0):
         self.name = name
         self.job = job
         self.pay = pay
+        Person.all_persons.append(self)
     def giveRaise(self):
         print("Giving Raise to Employee")
     def __str__(self):
@@ -23,3 +26,7 @@ if __name__ == "__main__":
     print(f)
     print(g)
     print(m)
+    for person in Person.all_persons:
+        print(person)
+
+
