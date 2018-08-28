@@ -1,7 +1,8 @@
 class Person:
     # all persons, shared by all instances -- class variable
     all_persons = []
-    def __init__(self, name, job=None, pay=0):
+    def __init__(self, name='', job=None, pay=0, **kwargs):
+        super().__init__(**kwargs)
         self.name = name
         self.job = job
         self.pay = pay
@@ -12,8 +13,8 @@ class Person:
         return self.name + " " + str(self.job) + " " + str(self.pay)
 
 class Manager(Person):
-    def __init__(self, name, pay, phone):
-        super().__init__(name, job="Manager", pay=33333)
+    def __init__(self, name='', pay=0, phone='', **kwargs):
+        super().__init__(name, job="Manager", pay=pay, **kwargs)
         self.phone = phone
     def giveRaise(self):
         print("Giving Raise to Engineer")
@@ -24,7 +25,7 @@ if __name__ == "__main__":
     e = Person("Bob", "Assistant", 10000)
     f = Person("Jack")
     g = Person("Greg", job="Developer", pay=30000)
-    m = Manager("Smith", 20000, 123456789)
+    m = Manager("Smith",20000,123456789)
     print(e)
     print(f)
     print(g)
