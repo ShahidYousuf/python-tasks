@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+	<title>
+	Test Page
+	</title>
+</head>
+<body>
+<h1>Welcome to Test Page</h1>
+<p>
+<a href="{% url 'polls:index' %}">Home</a>
+</p>
+{% if username %}
+<h3>Welcome {{username}}</h3>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<head>
+	<title>After Login</title>
+</head>
+<body>
+{% if email %}
+<p>Welcome {{email}}</p>
+<p>Your password is {{password}}</p>
+{% else %}
+<p>You have not logged in</p>
+{% endif %}
+</body>
+</html>

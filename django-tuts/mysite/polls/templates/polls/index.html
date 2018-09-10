@@ -1,3 +1,10 @@
+<p>
+
+<a href = " {% url 'polls:testpage'  %}">Testpage</a>
+<a href = " {% url 'polls:signup'  %}">SignUp</a>
+
+<p>
+
 {% if latest_question_list %}
 <ul>
     {% for question in latest_question_list %}
