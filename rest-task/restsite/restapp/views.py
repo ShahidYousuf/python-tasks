@@ -14,12 +14,11 @@ from django.http import Http404
 
 
 class QuoteList(APIView):
-    # adding authentication
-    # authentication_classes = (SessionAuthentication, TokenAuthentication)
     # adding permissions
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # adding authentication classes
+    authentication_classes = (SessionAuthentication, TokenAuthentication,)
     # get list of quotes
-    # try to create token
     def get(self, request, format=None):
         quotes = Quote.objects.all()
         serializer = QuoteSerializer(quotes, many=True)
@@ -38,6 +37,7 @@ class QuoteDetail(APIView):
 
     # add permissions
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    authentication_classes = (SessionAuthentication, TokenAuthentication,)
     # Retrive, update or delete a quote
 
     def get_object(self, pk):
