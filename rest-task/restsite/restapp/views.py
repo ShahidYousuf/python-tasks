@@ -15,7 +15,7 @@ from django.http import Http404
 
 class QuoteList(APIView):
     # adding permissions
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
     # adding authentication classes
     authentication_classes = (SessionAuthentication, TokenAuthentication,)
     # get list of quotes
@@ -36,7 +36,7 @@ class QuoteList(APIView):
 class QuoteDetail(APIView):
 
     # add permissions
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+   # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     authentication_classes = (SessionAuthentication, TokenAuthentication,)
     # Retrive, update or delete a quote
 
