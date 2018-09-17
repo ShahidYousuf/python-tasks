@@ -1,0 +1,18 @@
+{% load rest_framework %}
+<html>
+<head>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+</head>
+<body>
+<h3>Django Rest App</h3>
+<div>
+<ul>
+{% for item in data %}
+<li>{{item.id}}  {{item.text}}</li>
+{% endfor %}
+</ul>
+</div>
+</body>
+</html>

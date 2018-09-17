@@ -26,10 +26,16 @@ SECRET_KEY = '2utld0e5+8slrpkbrvatad$q*$2&-sbpo6#t(e@3%o8_#-%)9u'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 # Application definition
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
+SOCIAL_AUTH_GITHUB_KEY = '7622a11326fe3e4cff5c'
+SOCIAL_AUTH_GITHUB_SECRET = '65299739fb0a3a523e306de2b289811e369aa9ba'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '703347320025709'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'e3af441242be501d30e5669f417b26ec'  # App Secret
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'social_django',
     'restapp.apps.RestappConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'restsite.urls'
@@ -57,7 +67,7 @@ ROOT_URLCONF = 'restsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR,os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,6 +75,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -108,6 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
 #        'rest_framework.authentication.TokenAuthentication',
 #    )
 #}
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/

@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework import permissions
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.renderers import TemplateHTMLRenderer, BrowsableAPIRenderer, JSONRenderer
 from rest_framework.authtoken.views import ObtainAuthToken
 #from rest_framework.decorators import api_view
 from .models import Quote
@@ -9,20 +10,26 @@ from .serializers import QuoteSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 # Create your views here.
 
 
 
-class QuoteList(APIView):
+class QuoteList(LoginRequiredMixin, APIView):
     # adding permissions
     permission_classes = (permissions.IsAuthenticated,)
     # adding authentication classes
     authentication_classes = (SessionAuthentication, TokenAuthentication,)
     # get list of quotes
+    #renderer_classes = (TemplateHTMLRenderer, JSONRenderer)
     def get(self, request, format=None):
         quotes = Quote.objects.all()
         serializer = QuoteSerializer(quotes, many=True)
         return Response(serializer.data)
+       # return Response({'data':serializer}, template_name='restapp/api.html')
     # create a new quote
     def post(self, request, format=None):
        # token = Token.objects.create(user=request.user)
@@ -31,6 +38,8 @@ class QuoteList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+           # return Response({'serializer': serailizer},
+           #                 template_name='restapp/index.html')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class QuoteDetail(APIView):
@@ -78,6 +87,3 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': user.pk,
             'email':user.email
         })
-
-
-

@@ -1,0 +1,8 @@
+{% load rest_framework %}
+{% load i18n %}
+{% block branding %}
+<a class="navbar-brand" rel="nofollow" href="#">
+{% trans 'Django REST CRUD App' %}
+</a>
+<div>{{data}}</div>
+{% endblock %}
