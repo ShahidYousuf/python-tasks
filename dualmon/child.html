@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Child</title>
+</head>
+<body onload="handleLoad()">
+<main>
+<h3 id="message"></h3>
+<h3 id="message2"></h3>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>
+<h4>This is the child window</h4>  
+</main>
+<script>
+function handleLoad() {
+	window.focus()
+    if (navigator.userAgent.indexOf("Firefox") != -1) {
+    	window.resizeTo(screen.width, screen.height)
+    	document.getElementById("message").innerHTML = "Firefox Screen Width: " + screen.width + " Screen Height " + screen.height
+        document.getElementById("message2").innerHTML = "Firefox ScreenX " + window.screenX
+        // if window.screenX is more than the screen.width/2 (safe value... experimental), you are on second monitor, 
+        // else possibly close this popup....> there is no second monitor.
+    }
+    else if((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
+    	document.getElementById("message").innerHTML = "Internet Explorer Screen Width: " + screen.width + " Screen Height " + screen.height
+        document.getElementById("message2").innerHTML = "Internet Explorer Screen X: " + window.screenX
+        window.resizeTo(screen.width, screen.height)
+    }
+    else {
+        document.getElementById("message").innerHTML = "Chrome " + screen.width + " Screen Height " + screen.height
+        document.getElementById("message2").innerHTML = "Chrome ScreenX: " + window.screenX
+    	window.resizeTo(window.innerWidth, window.innerHeight)
+        window.resizeBy(screen.width, screen.height) //this extra line is crucial
+        // the following lines check logic to detect if popup loads on second screen... if not we close popup 
+        //if (window.screenX < screen.width/2) {
+        //    window.close()
+       // }
+    }
+}
+</script>
+</body>
+</html>

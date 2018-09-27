@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Parent</title>
+</head>
+<body>
+<main>
+    <div>
+	<button type="button" onclick="handleWindow()">New Window</button>
+	</div>
+</main>
+<script>
+var mywindow
+function handleWindow() {
+	// Firefox
+	if (navigator.userAgent.indexOf("Firefox") != -1) {
+		mywindow = window.open("child.html", "Child Window", "width=100%, height=100%, menubar=yes, scrollbars=yes, toolbar=yes, resizable=yes")
+		mywindow.moveTo(screen.width+1, 0);
+	    mywindow.focus();
+	}
+	// Internet Explorer
+	else if((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
+		myleft = screen.width
+	    mywindow =window.open("child.html", "Child Window", " width=100%, height=100%, left=" + myleft + ", menubar=yes, toolbar=yes, scrollbars=yes, resizable=yes")
+	    mywindow.moveTo(screen.width+1, 0);
+	    mywindow.focus();   
+	}
+	// Other browsers, Chrome
+	else {
+		myleft = screen.width
+		mywindow = window.open("child.html", "Child Window", "width=100%, height=100%, left=" + myleft + ",resizable=yes, menubar=yes, toolbar=yes, scrollbars=yes")
+		mywindow.moveTo(screen.width+1, 0);
+	    mywindow.focus();
+	}
+}
+</script>
+</body>
+</html>
