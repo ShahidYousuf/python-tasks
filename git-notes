@@ -35,5 +35,80 @@ $ git help push
 $ git config -h
 $ git push -h
 
+# Initializing a Repository in an Existing Directory
+$ cd /home/user/my_project
+$ git init                     # this is now a git repository
 
+# Cloning an existing git repo
+$ git clone <repo_url>
+# Checking the Status of Your Files
+$ git status
+
+# Let’s say you add a new file to your project, a simple README file. If the file didn’t exist before, and you run git status, you see your file listed as untracked file  
+
+# Tracking New Files
+$ git add README # for example, now README file will be tracked and staged to be committed
+
+# git add is a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things    like marking merge-conflicted files as resolved
+
+# If you modify a file after you run git add, you have to run git add again to stage the latest version of the file
+
+# To see what you’ve changed but not yet staged, type git diff with no other arguments
+# If you want to see what you’ve staged that will go into your next commit, you can use git diff --staged.
+
+# Committing Your Changes
+$ git commit
+$ git commit -m "add this to file" # for example
+
+# Removing Files
+$ git rm somefile
+# Keep the file in your working tree but remove it from your staging area.
+$ git rm --cached somefile
+
+# Moving Files
+# If you want to rename a file in Git:
+$ git mv myfile.txt myfile    # essentially renaming myfile.txt to myfile
+
+# Viewing the Commit History
+$ git log
+$ git log -3 # latest 3 commits
+$ git log -p -2 # also shows the difference in latest two commits
+$ git log --since=2.weeks # commits made in last two weeks
+$ git log --since=4.days  # commits made in last 4 days
+
+# Undoing things
+# if you commit and then realize you forgot to stage the changes in a file you wanted to add to this commit, you can do something like this:
+
+$ git commit -m "initial commit"
+$ git add forgotten_file
+$ git commit --amend
+
+# Unstaging a Staged File
+$ git reset HEAD somefile
+
+# Unmodifying a Modified File
+$ git checkout -- somefile
+
+# Showing Your Remotes
+$ git remote
+$ git remote -v
+
+# to get data from your remote projects, you can run:
+$ git fetch <remote>
+# git fetch origin fetches any new work that has been pushed to that server since you cloned (or last fetched from) it.
+$ git fetch origin
+# It’s important to note that the git fetch command only downloads the data to your local repository — it doesn’t automatically merge it with any of your work or modify what you’re currently working on. You have to merge it manually into your work when you’re ready.
+
+#  Running git pull generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.
+
+# Pushing to Your Remotes
+>> git push <remote> <branch>
+$ git push origin master
+
+# Inspecting a Remote
+>> git remote show <remote>
+$ git remote show origin
+
+# Listing Your Tags
+$ git tag
 
