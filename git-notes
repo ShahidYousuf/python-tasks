@@ -112,3 +112,25 @@ $ git remote show origin
 # Listing Your Tags
 $ git tag
 
+# Git Branching
+# Branching means you diverge from the main line of development and continue to do work without messing with that main line.
+
+# Creating a New Branch
+$ git branch testing # This creates a new pointer to the same commit you’re currently on.
+
+#  In Git, HEAD is a pointer to the local branch you’re currently on.
+
+# Switching Branches
+$ git checkout testing
+
+# To create a new branch and switch to it at the same time:
+$ git checkout -b testing
+
+# delete a branch
+$ git branch -d testing
+
+# Merging
+$ git checkout master
+$ git merge testing # merges testing branch to master
+
+
