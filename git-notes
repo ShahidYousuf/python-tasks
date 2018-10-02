@@ -1,0 +1,39 @@
+Git has three main states that your files can reside in: committed, modified, and staged:
+
+Committed means that the data is safely stored in your local database.
+
+Modified means that you have changed the file but have not committed it to your database yet.
+
+Staged means that you have marked a modified file in its current version to go into your next commit snapshot.
+
+# Installing git
+$ sudo apt install git-all
+# Check git version
+$ git --version
+
+Git comes with a tool called git config that lets you get and set configuration variables that control all aspects of how Git looks and operates.
+
+# Your Identity
+$ git config --global user.name "shahidyousuf"  // settings in /home/user/.gitconfig
+$ git config --global user.email shahidyousuf77@gmail.com
+
+$ git config user.name "someusername" // settings in .git/config of git directory i.e local
+
+# Checking Your Settings
+$ git config --list
+$ git config user.name
+$ git config user.email
+
+# Getting help
+-- git help <verb>
+$ git help config
+$ git help merge
+$ git help clone
+$ git help fetch
+$ git help push
+
+$ git config -h
+$ git push -h
+
+
+
