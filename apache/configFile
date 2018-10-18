@@ -33,10 +33,15 @@ NameVirtualHost *:80
 	#Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 # shahid
-<VirtualHost 127.0.0.1:80>
+LoadModule ssl_module /usr/lib/apache2/modules/mod_ssl.so
+Listen 443
+<VirtualHost 127.0.0.1:443>
     ServerName siteone.com
     ServerAlias www.siteone.com www.SiteOne.com
     DocumentRoot /home/shahid/test_site_one
+    SSLEngine on
+    SSLCertificateFile "/home/shahid/server.crt"
+    SSLCertificateKeyFile "/home/shahid/server.key"
     <Directory /home/shahid/test_site_one>
         Options Indexes FollowSymLinks
         AllowOverride None
@@ -46,6 +51,7 @@ NameVirtualHost *:80
         </Files>
     </Directory>
 </VirtualHost>
+
 <VirtualHost 127.0.0.1:80>
     ServerName sitetwo.com
     ServerAlias www.sitetwo.com www.SiteTwo.com
