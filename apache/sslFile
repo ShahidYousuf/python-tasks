@@ -1,0 +1,47 @@
+# Basic SSL configuration
+LoadModule ssl_module /usr/lib/apache/modules/mod_ssl.so
+Listen 443
+<VirtualHost *:443>
+    ServerName www.example.com
+    SSLEngine on
+    SSLCertificateFile "/path/to/www.example.com.cert"
+    SSLCertificateKeyFile "/path/to/www.example.com.key"
+</VirtualHost>
+
+# Opening OpenSSL prompt
+$ openssl
+# Check openssl version
+$ openssl version
+# Help and terse summary of openssl options
+$ openssl help
+# Generate RSA key using openssl
+$ openssl genrsa -out server.key 1024
+$ cat server.key
+# To see the public key associated with server.key
+$ openssl rsa -in server.key -pubout
+
+# Generate a Certificate Signing Request (CSR).
+# This is a formal request asking a certificate authority to sign a certificate, and it contains the public 
+# key of the entity requesting the certificate and information about the entity. The information becomes part of the
+# certificate.
+
+$ openssl req -new -key server.key -out server.csr
+
+# After a CSR is generated, you use it to sign your own certificate and/or send it to a public CA
+# and ask him to sign the certificate.
+
+# Signing your own certificate
+$ openssl x509 -req -days 365 -in server.csr \
+> -signkey server.key -out server.crt
+
+# Use the x509 command to examine the contents of the certificate you have created:
+$ openssl x509 -text -in server.crt>
+
+
+# Getting certificate signed by CA
+# To get a publicly recognized certificate, you will send the generated CSR to a CA. The CA will
+# collect payment, validate your organization’s identity, and issue a certificate.
+
+# Allow SSLv3 and TLSv1 but not SSLv2
+SSLProtocol All -SSLv2
+
