@@ -3,7 +3,7 @@ ServerName 127.0.0.1
 NameVirtualHost *:80
 
 # shahid
-<VirtualHost *:80>
+<VirtualHost 127.0.0.1:80>
 	# The ServerName directive sets the request scheme, hostname and port that
 	# the server uses to identify itself. This is used when creating
 	# redirection URLs. In the context of virtual hosts, the ServerName
@@ -33,40 +33,55 @@ NameVirtualHost *:80
 	#Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 # shahid
-LoadModule ssl_module /usr/lib/apache2/modules/mod_ssl.so
-Listen 443
-<VirtualHost 127.0.0.1:443>
-    ServerName siteone.com
-    ServerAlias www.siteone.com www.SiteOne.com
-    DocumentRoot /home/shahid/test_site_one
-    SSLEngine on
-    SSLCertificateFile "/home/shahid/server.crt"
-    SSLCertificateKeyFile "/home/shahid/server.key"
-    <Directory /home/shahid/test_site_one>
-        Options Indexes FollowSymLinks
-        AllowOverride None
-        Require all granted
-        <Files "private.html">
-            Require all denied
-        </Files>
-    </Directory>
-</VirtualHost>
+#LoadModule ssl_module /usr/lib/apache2/modules/mod_ssl.so
+#Listen 443
+#<VirtualHost 127.0.0.1:80 127.0.0.1:443>
+#    ServerName siteone.com
+#    ServerAlias www.siteone.com www.SiteOne.com
+#    DocumentRoot /home/shahid/test_site_one
+#    SSLEngine on
+#    SSLCertificateFile "/home/shahid/server.crt"
+#    SSLCertificateKeyFile "/home/shahid/server.key"
+#    <Directory /home/shahid/test_site_one>
+#        Options Indexes FollowSymLinks
+#        AllowOverride None
+#        Require all granted
+#        <Files "private.html">
+#            Require all denied
+#        </Files>
+#    </Directory>
+#</VirtualHost>
+#<VirtualHost 127.0.0.1:80>
+#    ServerName siteone.com
+#    ServerAlias www.siteone.com www.SiteOne.com
+#    DocumentRoot /home/shahid/test_site_one
+#    <Directory /home/shahid/test_site_one>
+#        Options Indexes FollowSymLinks
+#        AllowOverride None
+#        Require all granted
+#        <Files "private.html">
+#            Require all denied
+#        </Files>
+#    </Directory>
+#</VirtualHost>
+
+# we need old site url to be rewritten to new site urls
+# old site
 
 <VirtualHost 127.0.0.1:80>
-    ServerName sitetwo.com
-    ServerAlias www.sitetwo.com www.SiteTwo.com
-    DocumentRoot /home/shahid/test_site_two
-    <Directory /home/shahid/test_site_two>
-        Options Indexes FollowSymLinks
-        AllowOverride None
-        Require all granted
-    </Directory>
-</VirtualHost>
-<VirtualHost 127.0.0.1:80>
-    ServerName app.com
-    ServerAlias www.app.com www.App.com
-    DocumentRoot /home/shahid/python-tasks/django-tuts/mysite
-    <Directory /home/shahid/python-tasks/django-tuts/mysite>
+    ServerName www.siteone.com
+    ServerAlias siteone.com SiteOne.com
+    DocumentRoot /home/shahid/siteone/siteone
+    RewriteEngine On
+    # RewriteCond %{HTTP_HOST} ^(www.siteone.com)$
+    # rewrite www.siteone.com/about to www.siteone.com/features
+    # RewriteRule "^/about" "/features" [R,L]
+    # RewriteRule "^/(about)" "http://www.sitetwo.com/$1"
+    RewriteRule "^/(about)/" "http://www.sitetwo.com/$1/" [P]
+    RewriteRule "^/(features)/" "http://www.sitetwo.com/$1/" [P]
+    # the below line also works like the above one
+    # ProxyPass "/about/" "http://www.sitetwo.com/about/"
+    <Directory /home/shahid/siteone/siteone>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
@@ -74,10 +89,31 @@ Listen 443
             Require all granted
         </Files>
     </Directory>
-    WSGIDaemonProcess app.com python-home=/home/shahid/python-tasks/django-tuts/env python-path=/home/shahid/python-tasks/django-tuts/mysite
-    WSGIProcessGroup app.com
-    WSGIScriptAlias / /home/shahid/python-tasks/django-tuts/mysite/mysite/wsgi.py
     
+    # delegated process for running the wsgi application.
+    WSGIDaemonProcess www.siteone.com python-home=/home/shahid/environs/env1 python-path=/home/shahid/siteone/siteone
+    # used to specify which process group a WSGI application will be executed in.
+    WSGIProcessGroup www.siteone.com
+    # Base URL path you want to serve the application, here /. Also points the wsgi application
+    WSGIScriptAlias / /home/shahid/siteone/siteone/siteone/wsgi.py
+
+</VirtualHost>
+# new site
+<VirtualHost 127.0.0.1:80>
+    ServerName www.sitetwo.com
+    ServerAlias sitetwo.com SiteTwo.com
+    DocumentRoot /home/shahid/sitetwo/sitetwo
+    <Directory /home/shahid/sitetwo/sitetwo>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+        <Files "wsgi.py">
+            Require all granted
+        </Files>
+    </Directory>
+    WSGIDaemonProcess www.sitetwo.com python-home=/home/shahid/environs/env1 python-path=/home/shahid/sitetwo/sitetwo
+    WSGIProcessGroup www.sitetwo.com
+    WSGIScriptAlias / /home/shahid/sitetwo/sitetwo/sitetwo/wsgi.py
 </VirtualHost>
 # shahid
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
