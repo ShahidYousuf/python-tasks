@@ -77,8 +77,8 @@ NameVirtualHost *:80
     # rewrite www.siteone.com/about to www.siteone.com/features
     # RewriteRule "^/about" "/features" [R,L]
     # RewriteRule "^/(about)" "http://www.sitetwo.com/$1"
-    RewriteRule "^/(about)/" "http://www.sitetwo.com/$1/" [P]
-    RewriteRule "^/(features)/" "http://www.sitetwo.com/$1/" [P]
+    RewriteRule "^/(about|features)/" "http://www.sitetwo.com/$1/" [P]
+   # RewriteRule "^/(features)/" "http://www.sitetwo.com/$1/" [P]
     # the below line also works like the above one
     # ProxyPass "/about/" "http://www.sitetwo.com/about/"
     <Directory /home/shahid/siteone/siteone>
