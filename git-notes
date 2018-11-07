@@ -105,6 +105,9 @@ $ git fetch origin
 >> git push <remote> <branch>
 $ git push origin master
 
+# Pulling from the remote branch
+>> git pull <remote> <branch>
+$ git pull origin mybranch
 # Inspecting a Remote
 >> git remote show <remote>
 $ git remote show origin
@@ -135,3 +138,11 @@ $ git merge testing # merges testing branch to master
 
 #### this line was added from the branch #######
 
+
+
+### All important commands ########
+$ git --version
+$ git config --list
+$ git config --global user.name "shahidyousuf"
+$ git config --global user.email "shahidyousuf77@gmail.com"
+$ git config --global color.ui true
