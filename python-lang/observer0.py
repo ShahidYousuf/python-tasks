@@ -29,27 +29,42 @@ class Inventory:
 
 def observer1():
     print("observer1 is called")
-def observer2():
-    print("observer2 is called")
 
 class Observer1:
     def __init__(self, inventory):
         self.inventory = inventory
     # this is important, you need to define the __call__ method
     def __call__(self):
+        print("Observer1")
         print("Product ", self.inventory.product, "Quantity ", self.inventory.quantity)
+class Observer2:
+    def __init__(self, inventory):
+        self.inventory = inventory
+
+    def __call__(self):
+        print("Observer2")
+        print("Product ", self.inventory.product, "Quantity ", self.inventory.quantity)
+
 if __name__ == '__main__':
     
-    i = Inventory()
-    i.attach(observer1)
-    i.product = "computers"
-    i.quantity = 10
+    #i = Inventory()
+    #i.attach(observer1)
+    #i.product = "computers"
+    #i.quantity = 10
     
     k = Inventory()
-    o = Observer1(k)
-    k.attach(o)
+    o1 = Observer1(k)
+    o2 = Observer2(k)
+    k.attach(o1)
+    k.attach(o2)
     k.product = "classic computers"
     k.quantity = 23
+
+    print("#"*40)
+    print("Currently registered observers")
+    print("#"*40)
+    for item in k.observers:
+        print(item.__class__.__name__ , end=' ')
 
     
     
