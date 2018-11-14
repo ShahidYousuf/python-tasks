@@ -31,18 +31,25 @@ def observer1():
     print("observer1 is called")
 def observer2():
     print("observer2 is called")
+
+class Observer1:
+    def __init__(self, inventory):
+        self.inventory = inventory
+    # this is important, you need to define the __call__ method
+    def __call__(self):
+        print("Product ", self.inventory.product, "Quantity ", self.inventory.quantity)
 if __name__ == '__main__':
+    
     i = Inventory()
     i.attach(observer1)
     i.product = "computers"
     i.quantity = 10
-    j = Inventory()
-    j.attach(observer2)
-    j.product = "routers"
-    j.quantity = 34
-    print(i.product)
-    print(i.quantity)
-    print(j.product)
-    print(j.quantity)
+    
+    k = Inventory()
+    o = Observer1(k)
+    k.attach(o)
+    k.product = "classic computers"
+    k.quantity = 23
+
     
     
